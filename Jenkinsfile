@@ -1,10 +1,8 @@
 pipeline {
     agent any
-    
     environment {
         VIRTUAL_ENV = 'venv'
     }
-    
     stages {
         stage('Setup') {
             steps {
@@ -16,7 +14,6 @@ pipeline {
                 '''
             }
         }
-        
         stage('Build') {
             steps {
                 echo 'Building...'
@@ -26,7 +23,6 @@ pipeline {
                 '''
             }
         }
-        
         stage('Test') {
             steps {
                 echo 'Testing...'
@@ -36,7 +32,6 @@ pipeline {
                 '''
             }
         }
-        
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
@@ -48,14 +43,15 @@ pipeline {
             }
         }
     }
-    
     post {
         success {
+            echo 'Build successful!'
             mail to: 'team@example.com',
                  subject: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
                  body: "Good news! The job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' has succeeded."
         }
         failure {
+            echo 'Build failed!'
             mail to: 'team@example.com',
                  subject: "FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
                  body: "Bad news! The job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' has failed."
