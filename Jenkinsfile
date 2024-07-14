@@ -46,15 +46,11 @@ pipeline {
     post {
         success {
             echo 'Build successful!'
-            mail to: 'team@example.com',
-                 subject: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-                 body: "Good news! The job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' has succeeded."
+            // Optional: Add further actions on success
         }
         failure {
             echo 'Build failed!'
-            mail to: 'team@example.com',
-                 subject: "FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-                 body: "Bad news! The job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' has failed."
+            // Optional: Add further actions on failure
         }
     }
 }
