@@ -15,7 +15,13 @@ pipeline {
                 sh '''
                    python3 -m venv $VIRTUAL_ENV
                    source $VIRTUAL_ENV/bin/activate
-                   pip install -r requirements.txt
+                   if [ -f requirements.txt ]; then
+                       echo "requirements.txt found"
+                       pip install -r requirements.txt
+                   else
+                       echo "requirements.txt not found"
+                       exit 1
+                   fi
                 '''
             }
         }
