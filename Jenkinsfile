@@ -7,7 +7,11 @@ pipeline {
         stage('Setup') {
             steps {
                 echo 'Setting up the environment...'
-                sh 'ls -la' // List the files in the workspace
+                // Print the current working directory
+                sh 'pwd'
+                // List the files in the workspace to ensure requirements.txt is present
+                sh 'ls -la'
+                // Set up the virtual environment and install dependencies
                 sh '''
                    python3 -m venv $VIRTUAL_ENV
                    source $VIRTUAL_ENV/bin/activate
@@ -18,6 +22,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
+                // Activate the virtual environment and build the project
                 sh '''
                    source $VIRTUAL_ENV/bin/activate
                    python setup.py build
@@ -27,6 +32,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing...'
+                // Activate the virtual environment and run tests
                 sh '''
                    source $VIRTUAL_ENV/bin/activate
                    pytest tests/
@@ -36,6 +42,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
+                // Activate the virtual environment and deploy the application
                 sh '''
                    source $VIRTUAL_ENV/bin/activate
                    # Add your deployment script here
