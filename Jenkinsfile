@@ -7,6 +7,7 @@ pipeline {
         stage('Setup') {
             steps {
                 echo 'Setting up the environment...'
+                sh 'ls -la' // List the files in the workspace
                 sh '''
                    python3 -m venv $VIRTUAL_ENV
                    source $VIRTUAL_ENV/bin/activate
