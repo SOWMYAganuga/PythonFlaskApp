@@ -28,13 +28,13 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
-                // Activate the virtual environment and build the project
                 sh '''
-                   source $VIRTUAL_ENV/bin/activate
-                   python setup.py build
+                    source $VIRTUAL_ENV/bin/activate
+                    python setup.py build
                 '''
-            }
+             }
         }
+
         stage('Test') {
             steps {
                 echo 'Testing...'
