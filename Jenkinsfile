@@ -1,26 +1,16 @@
 pipeline {
     agent any
-    environment {
-        VIRTUAL_ENV = 'venv'
-    }
+    
     stages {
         stage('Setup') {
             steps {
-                echo 'Setting up the environment...'
-                sh '''
-                   python3 -m venv $VIRTUAL_ENV
-                   source $VIRTUAL_ENV/bin/activate
-                   pip install -r requirements.txt
-                '''
+                sh 'python3 -m venv venv'
+                sh './venv/bin/pip install -r requirements.txt'
             }
         }
         stage('Build') {
             steps {
-                echo 'Building...'
-                sh '''
-                   source $VIRTUAL_ENV/bin/activate
-                   python setup.py build
-                '''
+                sh './venv/bin/python setup.py install'
             }
         }
 
