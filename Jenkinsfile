@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    
+
     stages {
         stage('Setup') {
             steps {
@@ -8,9 +8,18 @@ pipeline {
                 sh './venv/bin/pip install -r requirements.txt'
             }
         }
+        stage('Debug') {
+            steps {
+                sh 'pwd'  // Print working directory
+                sh 'ls -la'  // List all files in the directory
+            }
+        }
         stage('Build') {
             steps {
-                sh './venv/bin/python setup.py install'
+                sh '''
+                source venv/bin/activate
+                python setup.py build
+                '''
             }
         }
 
