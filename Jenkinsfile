@@ -7,21 +7,10 @@ pipeline {
         stage('Setup') {
             steps {
                 echo 'Setting up the environment...'
-                // Print the current working directory
-                sh 'pwd'
-                // List the files in the workspace to ensure requirements.txt is present
-                sh 'ls -la'
-                // Set up the virtual environment and install dependencies
                 sh '''
                    python3 -m venv $VIRTUAL_ENV
                    source $VIRTUAL_ENV/bin/activate
-                   if [ -f requirements.txt ]; then
-                       echo "requirements.txt found"
-                       pip install -r requirements.txt
-                   else
-                       echo "requirements.txt not found"
-                       exit 1
-                   fi
+                   pip install -r requirements.txt
                 '''
             }
         }
@@ -29,10 +18,10 @@ pipeline {
             steps {
                 echo 'Building...'
                 sh '''
-                    source $VIRTUAL_ENV/bin/activate
-                    python setup.py build
+                   source $VIRTUAL_ENV/bin/activate
+                   python setup.py build
                 '''
-             }
+            }
         }
 
         stage('Test') {
